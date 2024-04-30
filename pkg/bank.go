@@ -1,5 +1,6 @@
 package pkg
 
 type Bank struct {
-	Name string
+	Name  string
+	Cards []Card
 }
