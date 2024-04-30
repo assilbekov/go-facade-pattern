@@ -14,5 +14,5 @@ type Card struct {
 func (c *Card) CheckBalance() error {
 	fmt.Println("Checking balance for card", c.Name, "with balance", c.Balance)
 	time.Sleep(time.Millisecond * 500)
-	return c.CheckBalance()
+	return c.Bank.CheckBalance(c.Name)
 }
