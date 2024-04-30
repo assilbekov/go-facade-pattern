@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"errors"
 	"fmt"
 	"time"
 )
@@ -15,12 +14,17 @@ func (s *Shop) Buy(p *Product, u *User) error {
 	fmt.Println("Buying product", p.Name, "for", p.Price)
 	time.Sleep(1 * time.Second)
 
-	if u.Card.Balance < p.Price {
-		return errors.New("not enough money")
+	err := u.Card.CheckBalance()
+	if err != nil {
+		return err
 	}
 
-	u.Card.Balance -= p.Price
-	s.Products = append(s.Products, *p)
+	if u.Balance() < p.Price {
+		return fmt.Errorf("user %s has insufficient balance", u.Name)
+	}
+
+	u.Pay(p.Price)
+	fmt.Println("Product", p.Name, "bought", "for", p.Price, "from", s.Name)
 
 	return nil
 }

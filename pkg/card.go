@@ -11,8 +11,8 @@ type Card struct {
 	Bank    *Bank
 }
 
-func (c *Card) CheckBalance() float64 {
+func (c *Card) CheckBalance() error {
 	fmt.Println("Checking balance for card", c.Name, "with balance", c.Balance)
 	time.Sleep(time.Millisecond * 500)
-	return c.Balance
+	return c.CheckBalance()
 }
